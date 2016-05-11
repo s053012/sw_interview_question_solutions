@@ -8,7 +8,7 @@ function kSum(input, k, target) {
 	// Sort the input - O(n*log(n))
 	var sorted = input.sort(function(a,b){return a-b;});
 	
-	// Solve recursively  - O(n^(k-1))
+	// Solve recursively - O(n^(k-1))
 	return kSumRecursive(sorted, k, target);
 }
 
