@@ -29,18 +29,21 @@ function kSubsets(arr, k) {
 
 	// Recursive case (k>1)
 	else {
-
+		
+		// For each element in input array
 		for (i=0; i<(arrLen-k+1); i++) {
 
-			// Keep the first element from input array
+			// Set the current element as front element
 			var head = arr.slice(i, i+1);
+			
+			// Select remaining elements from input array
 			var tail = arr.slice(i+1);
 
 			// Recursively generate all possible endings to attach to head
 			var subSolutions = kSubsets(tail, k-1);
 			var subLen = subSolutions.length;
 
-			// Concatenate head with all tails
+			// Concatenate head with all sub solutions, and add to array of solutions
 			for (j=0; j<subLen; j++) {
 				subsets.push( head.concat(subSolutions[j]) );
 			}
