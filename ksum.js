@@ -1,5 +1,5 @@
 //
-// PROBLEM: Given an array of integers find k integers that sum to a given target value.
+// PROBLEM: Given an array of integers, find k integers that sum to a given target value.
 //
 
 // Wrapper function that sorts the input array before applying recursive solution
