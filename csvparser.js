@@ -5,7 +5,7 @@
 //
 
 // Main fuction which takes a CSV formatted string as input and returns an array of array of strings
-function csvparser(input) {
+function csvParser(input) {
 	
 	// Initialize field, record and parsed output
 	var field = '';
@@ -16,8 +16,8 @@ function csvparser(input) {
 	var t = {
 		'QUOTE': '\"',
 		'ESCAPE': '\\',
-		'FIELD_SEP': ',',
-		'RECORD_SEP': '|'
+		'FIELDSEP': ',',
+		'RECORDSEP': '|'
 	};
 
 	// States for the finite state machine (FSM)
@@ -27,8 +27,8 @@ function csvparser(input) {
 		'QUOTED': 2
 	};
 
-	var current_state = s.REGULAR;
-	var previous_state;
+	var currentState = s.REGULAR;
+	var previousState;
 
 	// Current character
 	var c = '';
@@ -40,21 +40,21 @@ function csvparser(input) {
 	while ((c=input.charAt(i++)) !== '') {
 		
 		// Run FSM
-		switch (current_state) {
+		switch (currentState) {
 
 			case s.REGULAR:
-				previous_state = current_state;
+				previousState = currentState;
 				if (c === t.QUOTE) {
-					current_state = s.QUOTED;
+					currentState = s.QUOTED;
 				}
 				else if (c === t.ESCAPE) {
-					current_state = s.ESCAPED;
+					currentState = s.ESCAPED;
 				}
-				else if (c === t.FIELD_SEP) {
+				else if (c === t.FIELDSEP) {
 					record.push(field);
 					field = '';
 				}
-				else if (c === t.RECORD_SEP) {
+				else if (c === t.RECORDSEP) {
 					record.push(field);
 					parsed.push(record);
 					field = '';
@@ -67,16 +67,16 @@ function csvparser(input) {
 
 			case s.ESCAPED:
 				field += c;
-				current_state = previous_state;
+				currentState = previousState;
 				break;
 
 			case s.QUOTED:
-				previous_state = current_state;
+				previousState = currentState;
 				if (c === t.QUOTE) {
-					current_state = s.REGULAR;
+					currentState = s.REGULAR;
 				}
 				else if (c === t.ESCAPE) {
-					current_state = s.ESCAPED;
+					currentState = s.ESCAPED;
 				}
 				else {
 					field += c;
@@ -84,7 +84,7 @@ function csvparser(input) {
 				break;
 
 			default:
-				current_state = s.REGULAR;
+				currentState = s.REGULAR;
 		}
 	}
 
@@ -97,7 +97,7 @@ function csvparser(input) {
 
 // Run test case
 var test_input = 'First field,Second field,This field contains an escaped line separator\\|, This field contains quoted field separators ",,,"|This is the first field in a new line, This field contains an escaped quote character within a quoted segment "Quote: \\"",Another field with escaped \\"quotes\\"';
-var test_output = csvparser(test_input);
+var test_output = csvParser(test_input);
 
 console.log(test_input);
 console.log(test_output);
