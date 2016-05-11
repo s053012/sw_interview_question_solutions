@@ -10,7 +10,7 @@ function kSubsets(arr, k) {
 	var arrLen = arr.length;
 	
 	// Special case
-	if ((k <= 0) || (k>arrLen)) {
+	if ((k <= 0) || (k > arrLen)) {
 
 		// Return empty set
 		return subsets;
